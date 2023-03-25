@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
+#define mod 1000000007
 int t;
 const int MAX = 100001;
 int points[MAX][3];
