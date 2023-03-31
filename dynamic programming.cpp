@@ -296,7 +296,7 @@ int longestCommonSubstr (string s1, string s2, int n, int m)
 // 2) dp[i]=>maximuim score you can get by considering numbers till i;
 
 
-
+	//14
 // whether subset exists with target sum
 // memorization
 bool f(int ind,int k,vector<int> &v,vector<vector<int>> &dp,int n){
@@ -330,6 +330,7 @@ bool subsetSumToK(int n, int k, vector<int> &v) {
     return dp[n][k];
 }
 
+	//15
 // no of subsets with sum k
 int f(int ind,int sum,vector<int> &v,vector<vector<int>> &dp){
     if(ind==0){
@@ -342,6 +343,7 @@ int f(int ind,int sum,vector<int> &v,vector<vector<int>> &dp){
     return dp[ind][sum]=f(ind-1,sum,v,dp);
 }
 
+	//16
 int findWays(vector<int> &v, int k)
 {
     // Write your code here.
@@ -373,6 +375,97 @@ int minSubsetSumDifference(vector<int>& v, int n)
 	}
 	return m;
 }
+
+	//17
+//s1="horse" s2="ros"
+//1 insert
+//2 remove
+//3 replace
+//find minimum no of operations
+int editDistance(string s1, string s2)
+{
+    //write you code here
+    int m=s1.size(),n=s2.size();
+    int dp[m+1][n+1];
+    for(int i=0;i<=m;i++) dp[i][0]=i;
+    for(int i=0;i<=n;i++) dp[0][i]=i;
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
+            if(s1[i-1]==s2[j-1]) dp[i][j]=dp[i-1][j-1];
+            else dp[i][j]=1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));
+        }
+    }
+    return dp[m][n];
+
+}
+
+	//18
+//wildcard pattern matching
+//s1="?ay"  s2="ray" --> true
+//s1="**" s2="fvdgb" -->true
+//s1="fffsf" s2="dfzvbdfg" -->false
+//memeorization
+bool f(int i,int j,string p,string t,vector<vector<int>> &dp){
+   if(i<0 && j<0) return 1;
+   else if(i<0 && j>=0) return 0;
+   else if(j<0 && i>=0){
+      for(int k=0;k<=i;k++){
+         if(p[k]!='*') return 0;
+      }
+      return 1;
+   }
+   if(dp[i][j]!=-1) return dp[i][j];
+   if(p[i]=='?' || p[i]==t[j]) return dp[i][j]=f(i-1,j-1,p,t,dp);
+   else if(p[i]=='*'){
+      return dp[i][j]=f(i-1,j,p,t,dp)|f(i,j-1,p,t,dp);
+   }
+   return dp[i][j]=0;
+}
+
+
+bool wildcardMatching(string p, string t)
+{
+   int m=p.size(),n=t.size();
+   vector<vector<int>> dp(m+1,vector<int> (n+1,-1));
+   return f(m-1,n-1,p,t,dp);
+}
+
+//tabuation
+bool wildcardMatching(string p, string t)
+{
+   int m=p.size(),n=t.size();
+   bool dp[m+1][n+1];
+   for(int i=1;i<=m;i++) dp[i][0]=0;
+   dp[0][0]=1;
+   for(int i=1;i<=n;i++){
+      if(p[i-1]=='*') dp[0][i]=dp[0][i-1];
+      else dp[0][i]=0;
+   }
+   for(int i=1;i<=m;i++){
+      for(int j=1;j<=n;j++){
+         if(p[i-1]=='?' || p[i-1]==t[j-1]) dp[i][j]=dp[i-1][j-1];
+         else if(p[i-1]=='*') dp[i][j]=dp[i-1][j]|dp[i][j-1];
+         else dp[i][j]=0;
+      }
+   }
+   return dp[m][n];
+}
+
+
+	//19
+//arr[]={7,1,4,5,6,2} o/p=5
+// buy at 1 and sell at 6 maximize profit
+int maximumProfit(vector<int> &v){
+    int n=v.size(),ans=0;
+    vector<int> v1(n);
+    v1[n-1]=v[n-1];
+    for(int i=n-2;i>=0;i--) v1[i]=max(v1[i+1],v[i]);
+    for(int i=0;i<n;i++){
+        ans=max(ans,v1[i]-v[i]);
+    }
+    return ans;
+}
+
 
 int t;
 void solve()
