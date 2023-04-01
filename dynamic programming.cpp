@@ -492,6 +492,24 @@ int findNumberOfLIS(vector<int> &v)
     return ans;
 }
 
+	//21
+// matrix chain multiplication
+int f(int i,int j,vector<int> &v,vector<vector<int>> &dp){
+    if(i==j) return 0;
+    if(dp[i][j]!=-1) return dp[i][j];
+    int ans=INT_MAX;
+    for(int k=i;k<j;k++){
+        ans=min(ans,(v[i-1]*v[j]*v[k])+f(i,k,v,dp)+f(k+1,j,v,dp));
+    }
+    return dp[i][j]=ans;
+}
+
+int matrixMultiplication(vector<int> &v, int n)
+{
+    vector<vector<int>> dp(n,vector<int> (n,-1));
+    return f(1,n-1,v,dp);
+}
+
 int t;
 void solve()
 {
