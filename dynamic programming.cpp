@@ -466,6 +466,31 @@ int maximumProfit(vector<int> &v){
     return ans;
 }
 
+	//20
+// no of longest increasing subsequence
+int findNumberOfLIS(vector<int> &v)
+{
+    int n=v.size();
+    vector<int> dp(n,1),cnt(n,1);
+    int m=0,ans=0;
+    for(int i=1;i<n;i++){
+        for(int j=0;j<i;j++){
+            if(v[j]<v[i] && 1+dp[j]>dp[i]){
+                dp[i]=1+dp[j];
+                cnt[i]=cnt[j];
+            }
+            else if(v[j]<v[i] && 1+dp[j]==dp[i]){
+                cnt[i]+=cnt[j];
+            }
+        }
+        m=max(m,dp[i]);
+    }
+
+    for(int i=0;i<n;i++){
+        if(m==dp[i]) ans+=cnt[i]; 
+    }
+    return ans;
+}
 
 int t;
 void solve()
