@@ -532,6 +532,39 @@ int cost(int n, int c, vector<int> &v){
     return f(0,n,c,v,dp);
 }
 
+	//23
+// mining diamond problem
+// 3
+// 7 1 8
+// (7*1*8)-->[7,8]
+// (1*7*8)-->[8]
+// (1*8*1) total=120
+int f(int i,int j,int n,vector<int> &v,vector<vector<int>> &dp){
+	if(i+2==j) return v[i]*v[i+1]*v[j];
+	if(dp[i][j]!=-1) return dp[i][j];
+	int ans=0;
+	for(int k=i+1;k<j;k++){
+		ans=max(ans,(v[i]*v[k]*v[j])+f(i,k,n,v,dp)+f(k,j,n,v,dp));
+	}
+	return dp[i][j]=ans;
+}
+
+int maxCoins(vector<int>& a)
+{
+	int n=a.size();
+	if(n==1) return a[0];
+	vector<int> v(n+2);
+	v[0]=1,v[n+1]=1;
+	for(int i=0;i<n;i++) v[i+1]=a[i];
+	n=n+2;
+	vector<vector<int>> dp(n+1,vector<int> (n+1,-1));
+	return f(0,n-1,n,v,dp);
+}
+
+	//24
+// boolean evaluation
+
+
 int t;
 void solve()
 {
