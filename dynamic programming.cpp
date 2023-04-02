@@ -600,6 +600,36 @@ int evaluateExp(string & s) {
     return f(0,n-1,1,s,dp)%mod;
 }
 
+	//25
+// palindrome partitioning II
+// min no of cuts to make all substrings palindrome
+bool is(int i,int j,string s){
+    while(i<j){
+        if(s[i]!=s[j]) return 0;
+        i++,j--;
+    }
+    return 1;
+}
+
+int f(int i,int n,string s,vector<int> &dp){
+    if(i==n) return 0;
+    if(dp[i]!=-1) return dp[i];
+    int ans=INT_MAX;
+    for(int j=i;j<n;j++){
+        if(is(i,j,s)){
+            ans=min(ans,1+f(j+1,n,s,dp));
+        }
+    }
+    return dp[i]=ans;
+}
+
+int palindromePartitioning(string s){
+    int n=s.size();
+    vector<int> dp(n+1,-1);
+    return f(0,n,s,dp)-1;
+}
+
+
 int t;
 void solve()
 {
