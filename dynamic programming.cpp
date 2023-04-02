@@ -510,6 +510,28 @@ int matrixMultiplication(vector<int> &v, int n)
     return f(1,n-1,v,dp);
 }
 
+	//22
+// minimum cost to cuts initially from 0 to n
+// 5 3
+// 1 3 4
+// o/p 10
+// given array of cuts for each cut length is its cost
+int f(int i,int j,int c,vector<int> &v,vector<vector<int>> &dp){
+
+    if(dp[i][j]!=-1) return dp[i][j];
+    int ans=INT_MAX;
+    for(int k=0;k<c;k++){
+        if(v[k]>i&&v[k]<j) ans=min(ans,j-i+f(i,v[k],c,v,dp)+f(v[k],j,c,v,dp));
+    }
+    if(ans==INT_MAX) return 0;
+    else dp[i][j]=ans;
+}
+
+int cost(int n, int c, vector<int> &v){
+    vector<vector<int>> dp(n+1,vector<int> (n+1,-1));
+    return f(0,n,c,v,dp);
+}
+
 int t;
 void solve()
 {
