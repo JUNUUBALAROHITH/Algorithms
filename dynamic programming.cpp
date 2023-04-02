@@ -563,7 +563,42 @@ int maxCoins(vector<int>& a)
 
 	//24
 // boolean evaluation
+// total no of possible paranthesis for expression to be true
+ll f(int i,int j,bool isTrue,string &s,vector<vector<vector<int>>> &dp){
+    if(i>j) return 0;
+    if(i==j){
+        if(isTrue) return s[i]=='T';
+        return s[i]=='F';
+    }
+    if(dp[i][j][isTrue]!=-1) return dp[i][j][isTrue];
+    ll ans=0;
+    for(int k=i+1;k<=j-1;k+=2){
+        ll lt=f(i,k-1,1,s,dp);
+        ll lf=f(i,k-1,0,s,dp);
+        ll rt=f(k+1,j,1,s,dp);
+        ll rf=f(k+1,j,0,s,dp);
+        if(s[k]=='^'){
+            if(isTrue) ans+=(lt*rf)%mod+(rt*lf)%mod;
+            else ans+=(lt*rt)%mod+(lf*rf)%mod;
+        }
+        else if(s[k]=='|'){
+            if(isTrue) ans+=(lt*rt)%mod+(lt*rf)%mod+(lf*rt)%mod;
+            else ans+=(rf*lf)%mod;
+        }
+        else{
+            if(isTrue) ans+=(lt*rt)%mod;
+            else ans+=(lf*rf)%mod+(lf*rt)%mod+(lt*rf)%mod;
+        }
+        ans%=mod;
+    }
+    return dp[i][j][isTrue]=ans;
+}
 
+int evaluateExp(string & s) {
+    int n=s.size();
+    vector<vector<vector<int>>> dp(n+1,vector<vector<int>> (n+1,vector<int> (2,-1)));
+    return f(0,n-1,1,s,dp)%mod;
+}
 
 int t;
 void solve()
