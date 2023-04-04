@@ -2,6 +2,14 @@
 using namespace std;
 #define int long long
 
+//vvi
+1)check whether xth bit is set or not -->(n&(1<<x)
+2)set xth bit of n --> n=n|(1<<x)
+3)Toggle xth bit of n --> n=n^(1<<x)
+4)find lowest set bit of n --> n&(-n) 
+5)unset lsb of n --> n=n^(n&(-n))
+6)power of 2 --> !(n&(n-1)) for n>0
+
 // n-1 is n except 1s complement from least significant set bit to least significant bit
 // n=10100 --> n-1=10011
 // any integer should have atmost 32 bits think for optimal code
