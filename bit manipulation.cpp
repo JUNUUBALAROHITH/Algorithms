@@ -115,3 +115,26 @@ int32_t main()
         solve();
     }
 }
+
+//bitmask
+//x=1100 
+//y=1101
+//x is submask of y
+//x&y==x --> x is submask of y <-- x|y==y
+//iterate through all submasks of n
+//for(int x=n;x>0;x=(x-1)&n)
+//{
+//    cout<<x<<'\n';
+//}
+//cout<<0<<'\n'; //-->seperate case
+
+//iternate thrugh all submasks of n
+//for(int i=0;i<(1<<n);i++)   O(3^n)
+//{
+//  for(int x=i;x>0;x=(x-1)&i)
+//  {
+//      cout<<x<<" ";
+//  }
+//  cout<<0<<'\n';
+//}
+
