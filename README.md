@@ -1,2 +1,2 @@
 # My Algorithms
-Standard Graph Algorithm representation
+Standard Algorithm representation
