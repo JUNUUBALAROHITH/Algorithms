@@ -352,6 +352,60 @@ void BFS(int srcX,int srcY){
 // Condensation graph doesnt contain any cycle
 // if Ci ,Cj are SCC and there exists edge from Ci to Cj then out[Ci]>out[Cj]
 
+// rotten orange problem:
+int dx[4] = {1, 0, 0, -1};
+int dy[4] = {0, -1, 1, 0};
+
+int orangesRotting(vector<vector<int>>& v) {
+    int n=v.size();
+    int m=v[0].size();
+    queue<pair<int,int>> q;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(v[i][j]==2) q.push({i,j});
+        }
+    }
+    int ans=0;
+    vector<vector<int>> vis(n,vector<int> (m,0));
+    while(!q.empty()){
+        ans++;
+        int a=q.size();
+        pair<int,int> p;
+        for(int i=0;i<a;i++){
+            p=q.front();
+            q.pop();
+            vis[p.first][p.second]=1;
+            v[p.first][p.second]=2;
+            for(int x=0;x<4;x++){
+                int y=p.first+dx[x];
+                int z=p.second+dy[x];
+                if(y>=0&&z>=0&&y<n&&z<m){
+                    if(vis[y][z]==0&&v[y][z]==1){
+                        vis[y][z]=1;
+                        q.push({y,z});
+                    }
+                }
+            }
+        }
+
+        // queue<pair<int,int>> s=q;
+        // cout<<s.size()<<"\n";
+        // for(int i=0;i<q.size();i++){
+        //     p=s.front();
+        //     cout<<p.first<<" "<<p.second<<'\n';
+        //     s.pop();
+        // }
+        // cout<<'\n';
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(v[i][j]==1){
+                return -1;
+            }
+        }
+    }
+    return ans-1;
+}
 
 void solve()
 {
