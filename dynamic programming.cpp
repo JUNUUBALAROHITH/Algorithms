@@ -8,6 +8,8 @@ const int MAX = 100001;
 // 2) Optimisation(Minimum/ Maximum)
 // 3) YES/NO problems
 
+// IMP--> string_name.substr(initial_position,length of substr);--> return substring with initial i and final j
+
         // 1
 // Fibonacci Optimiation using dynamic programming
 int dp[MAX]; // O(n)
@@ -629,6 +631,35 @@ int palindromePartitioning(string s){
     return f(0,n,s,dp)-1;
 }
 
+	//26
+// Palindrome partioting 
+// return all possible palindromic patitons
+vector<vector<string>> partition(string s) {
+vector<vector<string>> ans;
+vector<string> path;
+f(0,s,path,ans);
+	return ans;
+}
+void f(int i,string s,vector<string>&path,vector<vector<string>> &ans){
+if(i==s.size()){
+    ans.push_back(path);
+    return;
+}
+for(int j=i;j<s.size();j++){
+    if(isPal(s,i,j)){
+	path.push_back(s.substr(i,j-i+1));
+	f(j+1,s,path,ans);
+	path.pop_back();
+    }
+}
+}
+bool isPal(string s,int i,int j){
+	while(i<j){
+	    if(s[i]!=s[j]) return 0;
+	    i++;j--;
+	}
+	return 1;
+}
 
 int t;
 void solve()
