@@ -2,10 +2,14 @@
 using namespace std;
 #define int long long
 // cout<<fixed<<setprecision(4)<<3.14159;
-#define mod 10000009
+#define mod 10000007
 
 // __gcd(a,b) inbulit
 // gcd(a,b)==gcd(a-b,b)==gcd(a,b-a)
+string s1="geeksforgeeks",s2="for;
+int found=s1.find(s2);
+if(found!=string::npos) cout<<"Substring Exists";
+else cout<<"Substring not exists";
 
 // Sieve of eratostheses o(nloglogn)
 bool isPrime[1000001]; //--> takes less space than integers 1e6+1
