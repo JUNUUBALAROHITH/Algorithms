@@ -13,16 +13,14 @@ priority_queue<int, vector<int>, greater<int>> q;
 // degree of self loop=2
 // degree of node in directed graph = indegree+outdegree
 
-vector< vector< int> > v(n);
-// adj[1]-->vector<int>
-// adj[1].push_back(2)
+vector< vector< int> > adj;
+vector<bool> vis;
+vector<int> col; // for coloured labels problem and also for further use in cycle detection...
+vector<int> in,out;
+// adj.resize(v)--> in solve() function for each test case
+// vis.resize(v,0)--> in solve() function for each testcase
+// resize() function is more useful to make global vectors
 
-// Check if 0-4 forms an edge or not?
-for(int i=0;i<v[0].size();i++)
-{
-    if(v[0][i]==4)
-    return true;
-}
 
 // breath first search
 int level[n];
@@ -55,9 +53,8 @@ vector<int> bfsOfGraph(int V, vector<int> adj[]){
 // connected graph with n node and n edges is a graph with exactly one cycle
 // each node has single parent in tree
 
-bool vis[n+1];
 
-void dfs(int v,int adj[n+1][]){  // O(V+E)
+void dfs(int v){  // O(V+E)
     vis[v]=1;
     cout<<v<<"->";
     for(int child : adj[v]){
@@ -65,7 +62,7 @@ void dfs(int v,int adj[n+1][]){  // O(V+E)
     }
 }
 
-int cc(int adj[n+1][]){
+int cc(){
     int c=0;
     for(int i=1;i<=n;i++){
         if(vis[i]==0){
@@ -80,7 +77,7 @@ int cc(int adj[n+1][]){
 // each vertex belongs to exactly one of two disjoin sets
 // each edge connects vertices of 2 different sets
 
-bool bipartite(int v,int c,vector<vector<int>> &adj,vector<bool> &col){
+bool bipartite(int v,int c){
     vis[v]=1;
     col[v]=c;
     for(int child:adj[v]){
@@ -132,7 +129,7 @@ bool dfs(int v){
 // implementation:
 int ma = -1, maxNode;
 
-void dfs(int v, vector<vector<int>> &adj, vector<bool> &vis, int dis)
+void dfs(int v,int dis)
 {
     vis[v] = 1;
     if (ma < dis)
