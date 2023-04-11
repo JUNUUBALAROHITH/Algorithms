@@ -28,6 +28,8 @@ int setBits(int n) // Brian Kernighan Algo
 // if(n==1) POWEROF2
 // else NOTPOWEROF2
 
+// n|(n^(n+1) --> smallest number greater than n with 1 bit difference
+
 // Two odd no of times repeating numbers in array
 // Since two numbers different atleast one it is different
 void oddAppearing(int arr[], int n)
