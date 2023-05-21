@@ -53,6 +53,38 @@ vector<int> bfsOfGraph(int V, vector<int> adj[]){
 // connected graph with n node and n edges is a graph with exactly one cycle
 // each node has single parent in tree
 
+// 0-1 bfs
+void bfs(int startX, int startY, int r, int c){
+    dis[startX][startY] = 0;
+    deque< pair<int, int> > q;
+    pair<int, int> p;
+    q.push_front(make_pair(startX, startY));
+    while(!q.empty()){
+        p = q.front();
+        q.pop_front();
+        int x = p.first;
+        int y = p.second;
+        int a[] = {0, -1, 0, 1};
+        int b[] = {-1, 0, 1, 0};
+        for(int i=0;i<4;i++){
+            int tmpX = x + a[i];
+            int tmpY = y + b[i];
+            if(in_range(tmpX, tmpY, r, c)){
+                if(mat[tmpX][tmpY] == mat[x][y] && dis[tmpX][tmpY] > dis[x][y]){
+                    q.push_front(make_pair(tmpX,tmpY));
+                    dis[tmpX][tmpY] = dis[x][y];
+                }
+                else if(mat[tmpX][tmpY] !=mat[x][y]){
+                    if(dis[tmpX][tmpY] > dis[x][y] + 1){
+                        q.push_back(make_pair(tmpX,tmpY));
+                        dis[tmpX][tmpY] = dis[x][y] + 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 void dfs(int v){  // O(V+E)
     vis[v]=1;
