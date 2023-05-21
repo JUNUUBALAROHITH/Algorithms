@@ -256,6 +256,7 @@ int in[v+1]; // to store in degree of each vertex
 //     adj[x].push_back(y);
 //     in[y]++; // directed graph
 // }
+// TopoSort-I
 vector<int> TopoSort(vector<vector<int>> &adj,int v){
     queue<int> q;
     vector<int> res; // to store result
@@ -272,6 +273,26 @@ vector<int> TopoSort(vector<vector<int>> &adj,int v){
         }
     }
     return res;
+}
+
+// TopoSort-II - Decreasing order of their finishing times
+int n; // no. of nodes
+vector<vector<int> > adj; // adjacency list
+vector<bool> vis;
+// initialise all values with false
+stack<int> st;
+void dfs(int node)
+{
+    vis[node]=true;
+    for(auto child: adj[node])
+    {
+        if ( ! vis[child] )
+        {
+            dfs(child);
+        }
+    }
+    st.push(node);
+    // push to stack when finished
 }
 
 void solve()
