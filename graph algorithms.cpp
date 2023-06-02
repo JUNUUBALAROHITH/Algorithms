@@ -144,8 +144,8 @@ int timer=1;
 bool dfs(int v){
     vis[v]=1;
     in[v]=timer++;
-    for(int child:v){
-        if(!vis[j]){
+    for(auto child:adj[v]){
+        if(!vis[child]){
             dfs(child);
         }
     }
